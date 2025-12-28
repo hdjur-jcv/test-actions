@@ -1,12 +1,18 @@
-name: My First Action
-on: [push] # This triggers the action every time you push code
+name: Test and Run
+on:
+  push:
+    paths:
+      - 'hello.py' # Only trigger if hello.py is modified
 
 jobs:
-  run-script:
-    runs-on: ubuntu-latest # The type of virtual machine to use
+  build-and-test:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6 # This copies your code into the VM
+        uses: actions/checkout@v6
 
-      - name: Run Python script
+      - name: Syntax Check (The Test)
+        run: python -m py_compile hello.py # Checks for indentation or syntax errors
+
+      - name: Run Script
         run: python hello.py

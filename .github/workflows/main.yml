@@ -1,0 +1,12 @@
+name: My First Action
+on: [push] # This triggers the action every time you push code
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest # The type of virtual machine to use
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6 # This copies your code into the VM
+
+      - name: Run Python script
+        run: python hello.py

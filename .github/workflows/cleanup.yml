@@ -1,0 +1,17 @@
+name: Delete Merged Branches
+on:
+  pull_request:
+    types: [closed] # Triggers when a PR is closed (merged or cancelled)
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true # Only run if the PR was actually merged
+    permissions:
+      contents: write # Required to delete branches
+    steps:
+      - name: Delete branch
+        uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          numbers: ${{ github.event.pull_request.number }}
